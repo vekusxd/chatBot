@@ -12,6 +12,8 @@
 #include <QDir>
 #include <QRegularExpression>
 
+#include "../include/commandmodel.hpp"
+
 MainWindow::MainWindow(QWidget *parent, const QString& name)
     : QMainWindow(parent), userName(name)
 {
@@ -61,8 +63,10 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
 
     commands << "/погода" << "/валюта" << "/привет";
 
-    QCompleter *completer = new QCompleter(commandsWidget->getCommands(), this);
+    QCompleter *completer = new QCompleter;
+    completer->setModel(commandsWidget->view->model());
     completer->setCaseSensitivity(Qt::CaseInsensitive);
+    completer->setCompletionRole(Qt::DisplayRole);
     messageEdit->setCompleter(completer);
 
 
@@ -107,8 +111,6 @@ void MainWindow::saveHistory()
 
     QTextStream stream(&file);
 
-    commandsToSave += "\n\n\n";
-
     stream << commandsToSave;
 
     file.close();
@@ -125,7 +127,14 @@ void MainWindow::onSendButtonClicked()
 
     commandsToSave += messageEdit->text() + "\t" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n";
 
-    resultDisplay->append(processCommand(messageEdit->text()));
+    CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
+    if(commandModel->containsCommand(messageEdit->text())){
+        auto item  = commandModel->getCommandItem(messageEdit->text());
+        item.processCommand();
+    }
+    else{
+        resultDisplay->append(processCommand(messageEdit->text()));
+    }
     messageEdit->clear();
 }
 
@@ -154,12 +163,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMessageBox message;
     message.setIcon(QMessageBox::Question);
     message.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    message.setInformativeText("Вы уверены?");
+    message.setInformativeText("Вы уверены что хотите выйти?");
     switch(message.exec()){
     case QMessageBox::Yes:
         saveHistory();
         event->accept();
-        QApplication::exit();
         break;
     default:
         event->ignore();

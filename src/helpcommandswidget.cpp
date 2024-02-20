@@ -7,7 +7,7 @@ HelpCommandsWidget::HelpCommandsWidget(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     view = new QListView;
-    model = new HelpCommandsModel;
+    model = new CommandModel;
 
     view->setModel(model);
 
@@ -15,13 +15,8 @@ HelpCommandsWidget::HelpCommandsWidget(QWidget *parent)
     connect(view, &QListView::doubleClicked, this, &HelpCommandsWidget::onDoubleClickedView);
 }
 
-QStringList HelpCommandsWidget::getCommands()
-{
-    return model->getCommands();
-}
-
 void HelpCommandsWidget::onDoubleClickedView(const QModelIndex& index)
 {
     int indexRow = index.row();
-    emit sendClickedCommand(model->commands.at(indexRow));
+    emit sendClickedCommand(model->getCommandItem(indexRow).getTitle());
 }

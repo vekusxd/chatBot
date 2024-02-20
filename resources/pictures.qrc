@@ -10,5 +10,7 @@
         <file>сложи.png</file>
         <file>умножь.png</file>
         <file>раздели.png</file>
+        <file>equalSign.png</file>
+        <file>равно.png</file>
     </qresource>
 </RCC>
