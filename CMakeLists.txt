@@ -13,6 +13,9 @@ set(INCLUDES
     include/logindialog.hpp
     include/mainwindow.hpp
     include/namevalidator.hpp
+    include/commands.hpp
+    include/helpcommandsmodel.hpp
+    include/helpcommandswidget.hpp
 
 )
 
@@ -21,7 +24,8 @@ set(SOURCES
     src/logindialog.cpp
     src/mainwindow.cpp
     src/namevalidator.cpp
-
+    src/helpcommandsmodel.cpp
+    src/helpcommandswidget.cpp
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)

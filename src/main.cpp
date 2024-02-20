@@ -10,20 +10,15 @@ int main(int argc, char **argv){
     LoginDialog dialog;
 
     if(dialog.exec() == QDialog::Accepted){
-        MainWindow widget;
-        QStatusBar statusBar;
+        MainWindow widget(nullptr, dialog.getName());
         if(dialog.getName().isEmpty()){
+            MainWindow widget;
             QMessageBox info;
-            info.setInformativeText("История не будет сохранена!");
+            info.setInformativeText("История будет сохранена в общий файл!");
             info.setDefaultButton(QMessageBox::Ok);
             info.setIcon(QMessageBox::Warning);
             info.exec();
-            statusBar.addWidget(new QLabel("Неизвестный пользователь"));
         }
-        else{
-            statusBar.addWidget(new QLabel(QString("Текущий пользователь: %1").arg(dialog.getName())));
-        }
-        widget.setStatusBar(&statusBar);
         widget.show();
         return app.exec();
     }

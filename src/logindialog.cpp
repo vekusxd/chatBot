@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QKeyEvent>
 #include "../include/namevalidator.hpp"
 
 LoginDialog::LoginDialog(QWidget *parent)
@@ -37,7 +38,7 @@ LoginDialog::LoginDialog(QWidget *parent)
     mainLayout->addWidget(loginPicture);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    QPushButton *acceptButton = new QPushButton("&Принять");
+    acceptButton = new QPushButton("&Принять");
     QPushButton *rejectButton = new QPushButton("&Выйти");
 
     buttonsLayout->addWidget(acceptButton);
@@ -52,6 +53,13 @@ LoginDialog::LoginDialog(QWidget *parent)
 QString LoginDialog::getName() const
 {
     return nameEdit->text();
+}
+
+void LoginDialog::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Return){
+        acceptButton->click();
+    }
 }
 
 

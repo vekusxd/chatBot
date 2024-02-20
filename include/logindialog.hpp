@@ -1,6 +1,7 @@
 #include <QDialog>
 #include <QLabel>
 #include <QLineEdit>
+#include <QPushButton>
 
 #pragma once
 
@@ -13,8 +14,13 @@ public:
 private:
     QLabel *loginPicture;
     QLineEdit *nameEdit;
+    QPushButton *acceptButton;
 
 public:
     QString getName() const;
 
+
+    // QWidget interface
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 };

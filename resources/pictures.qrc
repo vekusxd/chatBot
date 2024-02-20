@@ -5,5 +5,10 @@
         <file>appIcon.png</file>
         <file>welcomeIcon.png</file>
         <file>helpIcon.png</file>
+        <file>погода.png</file>
+        <file>вычти.png</file>
+        <file>сложи.png</file>
+        <file>умножь.png</file>
+        <file>раздели.png</file>
     </qresource>
 </RCC>
