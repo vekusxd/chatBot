@@ -1,11 +1,17 @@
 #include "../include/commandmodel.hpp"
-#include "../include/mathWidgets/add.hpp";
+#include "../include/mathWidgets/add.hpp"
+#include "../include/mathWidgets/div.hpp"
+#include "../include/mathWidgets/mult.hpp"
+#include "../include/mathWidgets/sub.hpp"
 
 
 CommandModel::CommandModel(QObject *parent)
     : QAbstractListModel(parent)
 {
     commands.emplaceBack(CommandItem("/сложить", "Сложение двух чисел", new AddWidget, QIcon(":/сложи.png")));
+    commands.emplaceBack(CommandItem("/разделить", "Деление двух чисел", new DivWidget, QIcon(":/раздели.png")));
+    commands.emplaceBack(CommandItem("/умножить", "Умножение двух чисел", new MultWidget, QIcon(":/умножь.png")));
+    commands.emplaceBack(CommandItem("/вычесть", "Вычитание двух чисел", new SubWidget, QIcon(":/вычти.png")));
 }
 
 int CommandModel::rowCount(const QModelIndex &parent) const
