@@ -1,6 +1,7 @@
 #include "add.hpp"
 
 #include <QHBoxLayout>
+#include <QKeyEvent>
 #include <QLabel>
 #include <QVBoxLayout>
 
@@ -45,4 +46,11 @@ AddWidget::AddWidget(QWidget *parent)
 void AddWidget::onProccessButtonClicked()
 {
     display->display(QString::number(firstNumber->value() + secondNumber->value()));
+}
+
+void AddWidget::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Equal || event->key() == Qt::Key_Plus){
+        proccessButton->click();
+    }
 }

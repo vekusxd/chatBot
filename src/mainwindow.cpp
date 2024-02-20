@@ -170,7 +170,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
         event->accept();
         break;
     default:
+        qDebug() << QDir::home().absolutePath();
         event->ignore();
+
         break;
     }
 }
