@@ -4,5 +4,6 @@
         <file>sendIcon.png</file>
         <file>appIcon.png</file>
         <file>welcomeIcon.png</file>
+        <file>helpIcon.png</file>
     </qresource>
 </RCC>

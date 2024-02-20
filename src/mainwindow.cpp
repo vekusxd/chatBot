@@ -1,4 +1,5 @@
 #include "../include/mainwindow.hpp"
+#include <QCompleter>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -8,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     QWidget *centralWidget = new QWidget;
 
-    //setWindowIcon(QIcon(":/appIcon.png"));
+    setWindowIcon(QIcon(":/appIcon.png"));
 
     setCentralWidget(centralWidget);
 
@@ -33,11 +34,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainLayout->addLayout(sendLayout);
 
+    commands << "/погода" << "/валюта" << "/привет";
+
+    QCompleter *completer = new QCompleter(commands, this);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    messageEdit->setCompleter(completer);
+
     resize(590, 460);
     connect(sendButton, &QPushButton::clicked, this, &MainWindow::onSendButtonClicked);
 }
 
 void MainWindow::onSendButtonClicked()
 {
+    if(messageEdit->text().isEmpty()){
+        return;
+    }
     resultDisplay->setText(resultDisplay->toPlainText() + QString("\n- %1").arg(messageEdit->text()));
+    messageEdit->clear();
 }

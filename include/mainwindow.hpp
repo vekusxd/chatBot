@@ -16,6 +16,8 @@ private:
     QLineEdit *messageEdit;
     QTextEdit *resultDisplay;
 
+    QStringList commands;
+
 public slots:
     void onSendButtonClicked();
 };

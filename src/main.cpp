@@ -18,7 +18,7 @@ int main(int argc, char **argv){
             info.setDefaultButton(QMessageBox::Ok);
             info.setIcon(QMessageBox::Warning);
             info.exec();
-            statusBar.addWidget(new QLabel("Анонимный пользователь"));
+            statusBar.addWidget(new QLabel("Неизвестный пользователь"));
         }
         else{
             statusBar.addWidget(new QLabel(QString("Текущий пользователь: %1").arg(dialog.getName())));

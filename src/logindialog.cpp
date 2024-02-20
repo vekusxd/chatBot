@@ -3,14 +3,12 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include "../include/namevalidator.hpp"
 
 LoginDialog::LoginDialog(QWidget *parent)
     : QDialog(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-
-    //setWindowTitle("");
-    //setWindowIcon(QIcon("qrc:/appIcon.png"));
 
     QLabel *greetingLabel = new QLabel("Добро пожаловать");
     greetingLabel->setFont(QFont("Times", 18, QFont::Bold));
@@ -25,6 +23,7 @@ LoginDialog::LoginDialog(QWidget *parent)
 
     nameEdit = new QLineEdit;
     nameEdit->setPlaceholderText("имя");
+    nameEdit->setValidator(new NameValidator);
 
 
     forNameLayout->addWidget(name);

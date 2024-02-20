@@ -12,12 +12,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(INCLUDES
     include/logindialog.hpp
     include/mainwindow.hpp
+    include/namevalidator.hpp
+
 )
 
 set(SOURCES
     src/main.cpp
     src/logindialog.cpp
     src/mainwindow.cpp
+    src/namevalidator.cpp
+
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
