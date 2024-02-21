@@ -13,6 +13,7 @@
 #include <QRegularExpression>
 
 #include "../include/commandmodel.hpp"
+#include "../include/clearWidget/clearWidget.hpp"
 
 MainWindow::MainWindow(QWidget *parent, const QString& name)
     : QMainWindow(parent), userName(name)
@@ -61,12 +62,11 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
 
     commandsWidget = new HelpCommandsWidget;
 
-    commands << "/погода" << "/валюта" << "/привет";
-
-    QCompleter *completer = new QCompleter;
+    completer = new QCompleter;
     completer->setModel(commandsWidget->view->model());
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     completer->setCompletionRole(Qt::DisplayRole);
+    completer->setWrapAround(false);
     messageEdit->setCompleter(completer);
 
 
@@ -77,6 +77,11 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
     connect(sendButton, &QPushButton::clicked, this, &MainWindow::onSendButtonClicked);
     connect(helpButton, &QPushButton::clicked, this, &MainWindow::onHelpButtonClicked);
     connect(commandsWidget, &HelpCommandsWidget::sendClickedCommand, this, &MainWindow::onHelpCommandDoubleClicked);
+
+    CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
+    auto item = commandModel->getCommandItem("/очистить");
+    ClearWidget *clear = static_cast<ClearWidget*>(item.getWidget());
+    connect(clear, &ClearWidget::clearText, this, &MainWindow::onClearTextSignal);
 }
 
 QString MainWindow::processCommand(const QString &command)
@@ -89,6 +94,7 @@ QString MainWindow::processCommand(const QString &command)
 }
 
 void MainWindow::saveHistory()
+
 {
 
     QString path(QDir::home().absolutePath() + "/Documents/simpleChatBot/");
@@ -149,6 +155,15 @@ void MainWindow::onHelpCommandDoubleClicked(const QString &command)
     messageEdit->setText(command);
 }
 
+void MainWindow::onClearTextSignal()
+{
+    CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
+    auto item = commandModel->getCommandItem("/очистить");
+    ClearWidget *clear = static_cast<ClearWidget*>(item.getWidget());
+    resultDisplay->clear();
+    clear->hide();
+}
+
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
@@ -171,7 +186,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
         break;
     default:
         event->ignore();
-
         break;
     }
 }

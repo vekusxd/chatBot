@@ -2,7 +2,6 @@
 
 #include <QListView>
 #include <QWidget>
-//#include "helpcommandsmodel.hpp"
 #include "commandmodel.hpp"
 
 class HelpCommandsWidget : public QWidget{

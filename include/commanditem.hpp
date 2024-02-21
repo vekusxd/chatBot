@@ -13,6 +13,7 @@ public:
     QString getTitle() const;
     QString getToolTipText() const;
     QIcon getIcon() const;
+    QWidget* getWidget() const;
 
     void processCommand();
 

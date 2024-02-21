@@ -29,6 +29,8 @@ private:
 
     QString commandsToSave;
 
+    QCompleter *completer;
+
     HelpCommandsWidget *commandsWidget;
 
 private:
@@ -39,6 +41,7 @@ public slots:
     void onSendButtonClicked();
     void onHelpButtonClicked();
     void onHelpCommandDoubleClicked(const QString& command);
+    void onClearTextSignal();
 
     // QWidget interface
 protected:

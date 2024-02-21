@@ -16,7 +16,19 @@ set(INCLUDES
     include/helpcommandswidget.hpp
     include/commanditem.hpp
     include/commandmodel.hpp
+)
 
+set(CLEAR_WIDGET
+    include/clearWidget/clear.hpp
+    include/clearWidget/clear.cpp
+    include/clearWidget/clearWidget.hpp
+    include/clearWidget/clearWidget.cpp
+)
+
+set(WEATHER_WIDGET
+    include/weather/weatherobject.hpp include/weather/weatherobject.cpp
+    include/weather/weathertablemodel.hpp include/weather/weathertablemodel.cpp
+    include/weather/weatherwidget.hpp include/weather/weatherwidget.cpp
 )
 
 set(MATH_WIDGETS
@@ -42,6 +54,8 @@ add_executable(chatBot
   ${SOURCES}
   ${INCLUDES}
   ${MATH_WIDGETS}
+  ${WEATHER_WIDGET}
+  ${CLEAR_WIDGET}
   resources/pictures.qrc
 
 )

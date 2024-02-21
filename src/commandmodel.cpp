@@ -3,6 +3,7 @@
 #include "../include/mathWidgets/div.hpp"
 #include "../include/mathWidgets/mult.hpp"
 #include "../include/mathWidgets/sub.hpp"
+#include "../include/clearWidget/clearWidget.hpp"
 
 
 CommandModel::CommandModel(QObject *parent)
@@ -12,6 +13,7 @@ CommandModel::CommandModel(QObject *parent)
     commands.emplaceBack(CommandItem("/разделить", "Деление двух чисел", new DivWidget, QIcon(":/раздели.png")));
     commands.emplaceBack(CommandItem("/умножить", "Умножение двух чисел", new MultWidget, QIcon(":/умножь.png")));
     commands.emplaceBack(CommandItem("/вычесть", "Вычитание двух чисел", new SubWidget, QIcon(":/вычти.png")));
+    commands.emplaceBack(CommandItem("/очистить", "Очистить вывод", new ClearWidget, QIcon(":/clear.png")));
 }
 
 int CommandModel::rowCount(const QModelIndex &parent) const

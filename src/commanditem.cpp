@@ -20,6 +20,11 @@ QIcon CommandItem::getIcon() const
     return _icon;
 }
 
+QWidget *CommandItem::getWidget() const
+{
+    return _widget;
+}
+
 void CommandItem::processCommand()
 {
     _widget->show();

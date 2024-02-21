@@ -7,7 +7,7 @@ NameValidator::NameValidator(QObject *parent)
 
 QValidator::State NameValidator::validate(QString &str, int &idk) const
 {
-    if(str.contains(QRegularExpression("[A-Za-z0-9]"))){
+    if(str.contains(QRegularExpression("[^А-Яа-я]"))){
         return Invalid;
     }
     return Acceptable;
