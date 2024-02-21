@@ -82,6 +82,7 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
     auto item = commandModel->getCommandItem("/очистить");
     ClearWidget *clear = static_cast<ClearWidget*>(item.getWidget());
     connect(clear, &ClearWidget::clearText, this, &MainWindow::onClearTextSignal);
+    connect(clear,&ClearWidget::saveText, this,  &MainWindow::onSaveTextSignal);
 }
 
 QString MainWindow::processCommand(const QString &command)
@@ -161,6 +162,14 @@ void MainWindow::onClearTextSignal()
     auto item = commandModel->getCommandItem("/очистить");
     ClearWidget *clear = static_cast<ClearWidget*>(item.getWidget());
     resultDisplay->clear();
+    clear->hide();
+}
+
+void MainWindow::onSaveTextSignal()
+{
+    CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
+    auto item = commandModel->getCommandItem("/очистить");
+    ClearWidget *clear = static_cast<ClearWidget*>(item.getWidget());
     clear->hide();
 }
 

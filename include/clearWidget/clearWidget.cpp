@@ -11,6 +11,7 @@ ClearWidget::ClearWidget(QWidget *parent)
     mainLayout->addWidget(clearDialog);
 
     connect(clearDialog, &ClearDialog::accepted, this, &ClearWidget::onClearDialogAccepted);
+    connect(clearDialog, &ClearDialog::rejected, this, &ClearWidget::onClearDialogRejected);
 }
 
 ClearDialog *ClearWidget::getClearDialog() const
@@ -21,4 +22,9 @@ ClearDialog *ClearWidget::getClearDialog() const
 void ClearWidget::onClearDialogAccepted()
 {
     emit clearText();
+}
+
+void ClearWidget::onClearDialogRejected()
+{
+    emit saveText();
 }

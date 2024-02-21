@@ -15,7 +15,9 @@ private:
     ClearDialog *clearDialog;
 signals:
     void clearText();
+    void saveText();
 
 private slots:
     void onClearDialogAccepted();
+    void onClearDialogRejected();
 };

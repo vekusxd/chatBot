@@ -6,9 +6,10 @@
 #include <QPushButton>
 #include <QIcon>
 #include <QMessageBox>
+#include <QKeyEvent>
 
 ClearDialog::ClearDialog(QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
@@ -17,8 +18,8 @@ ClearDialog::ClearDialog(QWidget *parent)
 
     mainLayout->addWidget(infoLabel);
 
-    QPushButton *acceptButton = new QPushButton("&Да");
-    QPushButton *rejectButton = new QPushButton("&Нет");
+    acceptButton = new QPushButton("&Да");
+    rejectButton = new QPushButton("&Нет");
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(acceptButton);
@@ -26,6 +27,28 @@ ClearDialog::ClearDialog(QWidget *parent)
 
     mainLayout->addLayout(buttonsLayout);
 
-    connect(acceptButton, &QPushButton::clicked, this, &QDialog::accept);
-    connect(rejectButton, &QPushButton::clicked, this, &QDialog::reject);
+    connect(acceptButton, &QPushButton::clicked, this, &ClearDialog::accepted);
+    connect(rejectButton, &QPushButton::clicked, this, &ClearDialog::onRejectPressed);
+}
+
+void ClearDialog::onAcceptPressed()
+{
+    emit accepted();
+}
+
+void ClearDialog::onRejectPressed()
+{
+    emit rejected();
+}
+
+void ClearDialog::keyPressEvent(QKeyEvent *event)
+{
+    switch(event->key()){
+    case Qt::Key_Return:
+        acceptButton->click();
+        return;
+    case Qt::Key_Escape:
+        rejectButton->click();
+        return;
+    }
 }

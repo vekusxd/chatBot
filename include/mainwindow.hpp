@@ -42,6 +42,7 @@ public slots:
     void onHelpButtonClicked();
     void onHelpCommandDoubleClicked(const QString& command);
     void onClearTextSignal();
+    void onSaveTextSignal();
 
     // QWidget interface
 protected:
