@@ -22,5 +22,6 @@
         <file>влажность.png</file>
         <file>wind.png</file>
         <file>time.png</file>
+        <file>cities.txt</file>
     </qresource>
 </RCC>

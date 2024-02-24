@@ -1,6 +1,8 @@
 #include <QWidget>
 #include <QTableView>
 #include <QPushButton>
+#include <QCompleter>
+#include <QNetworkAccessManager>
 
 #include "weathertablemodel.hpp"
 
@@ -14,6 +16,19 @@ private:
 
     QLineEdit *cityEdit;
     QPushButton *sendButton;
+
+    QStringList cities;
+
+    QCompleter *completer;
+
+    QNetworkAccessManager *manager;
+
+
+public slots:
+    void onSendButtonClicked();
+    void onReplyFinished(QNetworkReply *reply);
+private:
+    QStringList getCities();
 
     // QWidget interface
 protected:

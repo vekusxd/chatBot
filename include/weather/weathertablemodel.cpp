@@ -6,10 +6,7 @@
 WeatherModel::WeatherModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    WeatherObject obj1;
-    WeatherObject obj2;
-    WeatherObject obj3;
-    objects << obj1 << obj2 << obj3;
+
 }
 
 int WeatherModel::rowCount(const QModelIndex &parent) const
@@ -95,4 +92,12 @@ QVariant WeatherModel::headerData(int section, Qt::Orientation orientation, int 
     }
 
     return QVariant();
+}
+
+void WeatherModel::appendObject(const WeatherObject &object)
+{
+    int row = objects.size();
+    beginInsertRows(QModelIndex(), row, row);
+    objects.append(object);
+    endInsertRows();
 }
