@@ -7,6 +7,7 @@
 #include <QNetworkReply>
 #include <QMessageBox>
 #include <QJsonDocument>
+#include <QSortFilterProxyModel>
 
 #include "weatherwidget.hpp"
 #include "cityValidator.hpp"
@@ -41,11 +42,18 @@ WeatherWidget::WeatherWidget(QWidget *parent)
     model = new WeatherModel;
     view = new QTableView;
 
-    view->setModel(model);
+    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(this);
+    proxyModel->setSourceModel(model);
+
+
+    //view->setModel(model);
+    view->setModel(proxyModel);
+    view->setSortingEnabled(true);
     mainlayout->addWidget(view);
 
-    resize(726, 400);
+    resize(780, 400);
     view->resizeRowsToContents();
+    view->resizeColumnsToContents();
 
     connect(sendButton, &QPushButton::clicked, this, &WeatherWidget::onSendButtonClicked);
     connect(manager, &QNetworkAccessManager::finished, this, &WeatherWidget::onReplyFinished);
@@ -104,3 +112,12 @@ void WeatherWidget::resizeEvent(QResizeEvent *event)
 {
     //qDebug() << event->size();
 }
+
+void WeatherWidget::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Return){
+        sendButton->click();
+    }
+}
+
+
