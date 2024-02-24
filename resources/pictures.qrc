@@ -13,5 +13,14 @@
         <file>equalSign.png</file>
         <file>равно.png</file>
         <file>clear.png</file>
+        <file>weatherIcon.png</file>
+        <file>newSend.png</file>
+        <file>findIcon.png</file>
+        <file>cityIcon.png</file>
+        <file>temperature.png</file>
+        <file>pressure.png</file>
+        <file>влажность.png</file>
+        <file>wind.png</file>
+        <file>time.png</file>
     </qresource>
 </RCC>

@@ -54,6 +54,7 @@ void DivWidget::onProccessButtonClicked()
     QMessageBox warning;
     warning.setIcon(QMessageBox::Critical);
     warning.setInformativeText("Делить на 0 нельзя!");
+    display->display("error");
     warning.exec();
 }
 

@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
 
     sendButton = new QPushButton;
 
-    sendButton->setIcon(QIcon(":/sendIcon.png"));
+    sendButton->setIcon(QIcon(":/newSend.png"));
     sendButton->setToolTip("Отправить");
 
     sendLayout->addWidget(helpButton, 1);

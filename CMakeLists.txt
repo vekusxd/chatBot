@@ -29,6 +29,7 @@ set(WEATHER_WIDGET
     include/weather/weatherobject.hpp include/weather/weatherobject.cpp
     include/weather/weathertablemodel.hpp include/weather/weathertablemodel.cpp
     include/weather/weatherwidget.hpp include/weather/weatherwidget.cpp
+    include/weather/cityValidator.hpp include/weather/cityValidator.cpp
 )
 
 set(MATH_WIDGETS
@@ -48,7 +49,7 @@ set(SOURCES
     src/commandmodel.cpp
 )
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network)
 
 add_executable(chatBot
   ${SOURCES}
@@ -59,5 +60,5 @@ add_executable(chatBot
   resources/pictures.qrc
 
 )
-target_link_libraries(chatBot Qt6::Core Qt6::Gui Qt6::Widgets)
+target_link_libraries(chatBot Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Network)
 

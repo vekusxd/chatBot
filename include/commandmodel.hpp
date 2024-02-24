@@ -2,7 +2,6 @@
 
 #include <QAbstractListModel>
 #include "commanditem.hpp"
-#include "clearWidget/clearWidget.hpp"
 
 class CommandModel : public QAbstractListModel{
     Q_OBJECT
