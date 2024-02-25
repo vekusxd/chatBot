@@ -16,7 +16,7 @@ set(INCLUDES
     include/helpcommandswidget.hpp
     include/commanditem.hpp
     include/commandmodel.hpp
-    #include/historyWidget.hpp
+    include/syntaxhighlighter.hpp
 )
 
 set(CLEAR_WIDGET
@@ -54,7 +54,7 @@ set(SOURCES
     src/helpcommandswidget.cpp
     src/commanditem.cpp
     src/commandmodel.cpp
-    #src/historyWidget.cpp
+    src/syntaxhighlighter.cpp
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network)

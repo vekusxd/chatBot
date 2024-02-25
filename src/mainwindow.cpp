@@ -15,6 +15,7 @@
 
 #include "../include/commandmodel.hpp"
 #include "../include/clearWidget/clearWidget.hpp"
+#include "../include/syntaxhighlighter.hpp"
 
 MainWindow::MainWindow(QWidget *parent, const QString& name)
     : QMainWindow(parent), userName(name)
@@ -42,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
     historyWidget = new HistoryWidget(name);
     //historyWidget->loadFromFile(loadHistory());
 
+    SyntaxHiglighter *higlighter = new SyntaxHiglighter(resultDisplay->document());
+
     toolBar = new QToolBar;
     toolBar->addAction(QPixmap(":/history.png"), "История", this, &MainWindow::showHistory);
     toolBar->addAction(QPixmap(":/clear.png"), "Очистить", this, &MainWindow::clear);
@@ -55,6 +58,8 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
 
     messageEdit = new QLineEdit;
     messageEdit->setPlaceholderText("Введите команду");
+
+
 
     helpButton = new QPushButton;
     helpButton->setIcon(QIcon(":/helpIcon.png"));
@@ -98,10 +103,30 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
 
 QString MainWindow::processCommand(const QString &command)
 {
-    QRegularExpression helloPattern("\\s*\\w*здрав\\w*\\s*",  QRegularExpression::CaseInsensitiveOption);
-    if(command.contains(helloPattern)){
-        return "- Добрый день!";
+    static QList<QRegularExpression> Hellopatterns;
+    static QList<QRegularExpression> timePatterns;
+    Hellopatterns << QRegularExpression("\\s*\\w*здрав\\w*\\s*",  QRegularExpression::CaseInsensitiveOption);
+    Hellopatterns << QRegularExpression("\\s*\\w*прив\\w*\\s*", QRegularExpression::CaseInsensitiveOption);
+    Hellopatterns << QRegularExpression("\\s*\\w*шалом\\w*\\s*", QRegularExpression::CaseInsensitiveOption);
+    Hellopatterns << QRegularExpression("\\s*\\w*ку\\w*\\s*", QRegularExpression::CaseInsensitiveOption);
+
+    timePatterns << QRegularExpression("\\s*\\w*час\\w*\\s*", QRegularExpression::CaseInsensitiveOption);
+    timePatterns << QRegularExpression("\\s*\\w*время\\w*\\s*", QRegularExpression::CaseInsensitiveOption);
+    timePatterns << QRegularExpression("\\s*\\w*времени\\w*\\s*", QRegularExpression::CaseInsensitiveOption);
+
+    for(const auto& i : Hellopatterns){
+        if(command.contains(i)){
+            return "- Добрый день!";
+        }
     }
+
+    for(const auto& i : timePatterns){
+        if(command.contains(i)){
+            return QString("Сейчас: %1").arg(QTime::currentTime().toString());
+        }
+    }
+
+
     return "Неизвестная команда";
 }
 
@@ -172,6 +197,12 @@ void MainWindow::onSendButtonClicked()
     //historyWidget->appendHistory(messageEdit->text() + "\t" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n");
     historyWidget->addObject(messageEdit->text(), QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
 
+    if(messageEdit->text() == "/история"){
+        historyWidget->show();
+        messageEdit->clear();
+        return;
+    }
+
     CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
     if(commandModel->containsCommand(messageEdit->text())){
         auto item  = commandModel->getCommandItem(messageEdit->text());
@@ -214,6 +245,7 @@ void MainWindow::onSaveTextSignal()
 void MainWindow::showHistory()
 {
     historyWidget->show();
+
 }
 
 void MainWindow::clear()

@@ -5,6 +5,7 @@
 #include "../include/mathWidgets/sub.hpp"
 #include "../include/clearWidget/clearWidget.hpp"
 #include "../include/weather/weatherwidget.hpp"
+#include "../include/newHistoryWidget/historyWidget.hpp"
 
 
 CommandModel::CommandModel(QObject *parent)
@@ -16,6 +17,7 @@ CommandModel::CommandModel(QObject *parent)
     commands.emplaceBack(CommandItem("/вычесть", "Вычитание двух чисел", new SubWidget, QIcon(":/вычти.png")));
     commands.emplaceBack(CommandItem("/очистить", "Очистить вывод", new ClearWidget, QIcon(":/clear.png")));
     commands.emplaceBack(CommandItem("/погода", "Узнать текущую погоду", new WeatherWidget, QIcon(":/weatherIcon.png")));
+    commands.emplaceBack(CommandItem("/история", "Показать историю текущей сессии", new HistoryWidget(""), QIcon(":/history.png")));
 }
 
 int CommandModel::rowCount(const QModelIndex &parent) const

@@ -44,6 +44,7 @@ void HistoryWidget::addObject(const QString& command, const QString &time)
     model->appendObject(HistoryObject(command, time));
 }
 
+
 void HistoryWidget::onTextChanged()
 {
     if(!findEdit->text().isEmpty()){
