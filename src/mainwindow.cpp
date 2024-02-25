@@ -153,7 +153,6 @@ QString MainWindow::loadHistory()
     }
 
     if(!file.open(QIODevice::ReadOnly)){
-        qDebug() << "file not open";
         return "";
     }
 
