@@ -9,6 +9,7 @@
 #include <QListView>
 
 #include "helpcommandswidget.hpp"
+#include "historyWidget.hpp"
 
 class MainWindow : public QMainWindow{
     Q_OBJECT
@@ -26,16 +27,19 @@ private:
     QStringList commands;
 
     QStatusBar *nameStatus;
+    QToolBar *toolBar;
 
     QString commandsToSave;
 
     QCompleter *completer;
 
     HelpCommandsWidget *commandsWidget;
+    HistoryWidget *historyWidget;
 
 private:
     QString processCommand(const QString& command);
     void saveHistory();
+    QString loadHistory();
 
 public slots:
     void onSendButtonClicked();
@@ -43,6 +47,10 @@ public slots:
     void onHelpCommandDoubleClicked(const QString& command);
     void onClearTextSignal();
     void onSaveTextSignal();
+
+    void showHistory();
+    void clear();
+    void showWeather();
 
     // QWidget interface
 protected:

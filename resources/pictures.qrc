@@ -23,5 +23,6 @@
         <file>wind.png</file>
         <file>time.png</file>
         <file>cities.txt</file>
+        <file>history.png</file>
     </qresource>
 </RCC>

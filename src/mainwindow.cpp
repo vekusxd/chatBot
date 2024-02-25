@@ -11,6 +11,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QRegularExpression>
+#include <QToolBar>
 
 #include "../include/commandmodel.hpp"
 #include "../include/clearWidget/clearWidget.hpp"
@@ -37,6 +38,16 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
 
     resultDisplay = new QTextEdit;
     resultDisplay->setReadOnly(true);
+
+    historyWidget = new HistoryWidget(name);
+    historyWidget->loadFromFile(loadHistory());
+
+    toolBar = new QToolBar;
+    toolBar->addAction(QPixmap(":/history.png"), "История", this, &MainWindow::showHistory);
+    toolBar->addAction(QPixmap(":/clear.png"), "Очистить", this, &MainWindow::clear);
+    toolBar->addAction(QPixmap(":/weatherIcon.png"), "Прогноз погоды", this, &MainWindow::showWeather);
+    addToolBar(Qt::TopToolBarArea, toolBar);
+
 
     mainLayout->addWidget(resultDisplay);
 
@@ -123,6 +134,32 @@ void MainWindow::saveHistory()
     file.close();
 }
 
+QString MainWindow::loadHistory()
+{
+    QFile file;
+
+    QString path(QDir::home().absolutePath() + "/Documents/simpleChatBot/");
+    QDir dir;
+
+    if(!dir.exists(path)){
+        dir.mkpath(path);
+    }
+
+    if(userName.isEmpty()){
+        file.setFileName(path + "unknown.txt");
+    }
+    else{
+        file.setFileName(path + userName + ".txt");
+    }
+
+    if(!file.open(QIODevice::ReadOnly)){
+        qDebug() << "file not open";
+        return "";
+    }
+
+    return file.readAll();
+}
+
 void MainWindow::onSendButtonClicked()
 {
     if(messageEdit->text().isEmpty()){
@@ -133,6 +170,7 @@ void MainWindow::onSendButtonClicked()
     resultDisplay->append(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n");
 
     commandsToSave += messageEdit->text() + "\t" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n";
+    historyWidget->appendHistory(messageEdit->text() + "\t" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n");
 
     CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
     if(commandModel->containsCommand(messageEdit->text())){
@@ -171,6 +209,25 @@ void MainWindow::onSaveTextSignal()
     auto item = commandModel->getCommandItem("/очистить");
     ClearWidget *clear = static_cast<ClearWidget*>(item.getWidget());
     clear->hide();
+}
+
+void MainWindow::showHistory()
+{
+    historyWidget->show();
+}
+
+void MainWindow::clear()
+{
+    CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
+    auto item  = commandModel->getCommandItem("/очистить");
+    item.processCommand();
+}
+
+void MainWindow::showWeather()
+{
+    CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
+    auto item  = commandModel->getCommandItem("/погода");
+    item.processCommand();
 }
 
 
