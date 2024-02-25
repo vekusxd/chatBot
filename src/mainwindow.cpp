@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent, const QString& name)
     resultDisplay->setReadOnly(true);
 
     historyWidget = new HistoryWidget(name);
-    historyWidget->loadFromFile(loadHistory());
+    //historyWidget->loadFromFile(loadHistory());
 
     toolBar = new QToolBar;
     toolBar->addAction(QPixmap(":/history.png"), "История", this, &MainWindow::showHistory);
@@ -169,7 +169,8 @@ void MainWindow::onSendButtonClicked()
     resultDisplay->append(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n");
 
     commandsToSave += messageEdit->text() + "\t" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n";
-    historyWidget->appendHistory(messageEdit->text() + "\t" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n");
+    //historyWidget->appendHistory(messageEdit->text() + "\t" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss") + "\n");
+    historyWidget->addObject(messageEdit->text(), QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
 
     CommandModel* commandModel = static_cast<CommandModel*>(commandsWidget->view->model());
     if(commandModel->containsCommand(messageEdit->text())){

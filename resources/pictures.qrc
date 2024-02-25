@@ -24,5 +24,6 @@
         <file>time.png</file>
         <file>cities.txt</file>
         <file>history.png</file>
+        <file>commands.png</file>
     </qresource>
 </RCC>

@@ -16,7 +16,7 @@ set(INCLUDES
     include/helpcommandswidget.hpp
     include/commanditem.hpp
     include/commandmodel.hpp
-    include/historyWidget.hpp
+    #include/historyWidget.hpp
 )
 
 set(CLEAR_WIDGET
@@ -40,6 +40,12 @@ set(MATH_WIDGETS
     include/mathWidgets/div.hpp  include/mathWidgets/div.cpp
 )
 
+set(HISTORY_WIDGET
+    include/newHistoryWidget/historyObject.hpp include/newHistoryWidget/historyObject.cpp
+    include/newHistoryWidget/historyModel.hpp include/newHistoryWidget/historyModel.cpp
+    include/newHistoryWidget/historyWidget.hpp include/newHistoryWidget/historyWidget.cpp
+)
+
 set(SOURCES
     src/main.cpp
     src/logindialog.cpp
@@ -48,7 +54,7 @@ set(SOURCES
     src/helpcommandswidget.cpp
     src/commanditem.cpp
     src/commandmodel.cpp
-    src/historyWidget.cpp
+    #src/historyWidget.cpp
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network)
@@ -59,6 +65,7 @@ add_executable(chatBot
   ${MATH_WIDGETS}
   ${WEATHER_WIDGET}
   ${CLEAR_WIDGET}
+  ${HISTORY_WIDGET}
   resources/pictures.qrc
 
 )

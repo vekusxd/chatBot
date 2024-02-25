@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QJsonDocument>
 #include <QSortFilterProxyModel>
+#include <QHeaderView>
 
 #include "weatherwidget.hpp"
 #include "cityValidator.hpp"
@@ -52,8 +53,7 @@ WeatherWidget::WeatherWidget(QWidget *parent)
     mainlayout->addWidget(view);
 
     resize(780, 400);
-    view->resizeRowsToContents();
-    view->resizeColumnsToContents();
+    view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     connect(sendButton, &QPushButton::clicked, this, &WeatherWidget::onSendButtonClicked);
     connect(manager, &QNetworkAccessManager::finished, this, &WeatherWidget::onReplyFinished);

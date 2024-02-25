@@ -9,7 +9,8 @@
 #include <QListView>
 
 #include "helpcommandswidget.hpp"
-#include "historyWidget.hpp"
+//#include "historyWidget.hpp"
+#include "newHistoryWidget/historyWidget.hpp"
 
 class MainWindow : public QMainWindow{
     Q_OBJECT
@@ -34,6 +35,8 @@ private:
     QCompleter *completer;
 
     HelpCommandsWidget *commandsWidget;
+    //HistoryWidget *historyWidget;
+
     HistoryWidget *historyWidget;
 
 private:
